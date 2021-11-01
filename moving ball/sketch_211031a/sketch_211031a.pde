@@ -9,6 +9,12 @@
  * current position toward the cursor. 
  */
  
+ import oscP5.*;
+import netP5.*;
+
+OscP5 oscP5;
+NetAddress myRemoteLocation;
+
 float x;
 float y;
 float easing = 0.05;
@@ -21,6 +27,9 @@ void setup() {
   noStroke();  
   positionX = width/2;
   positionY = height/2;
+  
+  oscP5 = new OscP5(this,12000);
+  myRemoteLocation = new NetAddress("127.0.0.1",12000);
 }
 
 void draw() { 
@@ -62,6 +71,19 @@ void keyPressed() {
   if (keyCode == RIGHT) {
     positionX += 60;
   }
+}
+
+void oscEvent(OscMessage theOscMessage) {
+  if (theOscMessage.checkAddrPattern("/down") == true) {
+    positionY += 40;
+  } else if (theOscMessage.checkAddrPattern("/up") == true) {
+    positionY -= 40;
+  } else if (theOscMessage.checkAddrPattern("/right") == true) {
+    positionX += 60;
+  } else if (theOscMessage.checkAddrPattern("/left") == true) {
+    positionX -= 60;
+  }
+  println();
 }
   
   

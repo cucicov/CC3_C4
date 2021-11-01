@@ -9,7 +9,7 @@ int[] data = new int[100];
 int gestureCount = 1;
 
 
-boolean REC_MODE = false;
+boolean REC_MODE = true;
 
 void setup() {
   size(500, 500);
